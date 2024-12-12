@@ -34,9 +34,10 @@ public class AppRunnerCash {
 
     private void startSimulation() {
         print("В автомате доступны:");
-        showProducts(products);
-
         print("Монет на сумму: " + cashAcceptorMy.getAmount());
+        System.out.println("----------------");
+        showProducts(products);
+        System.out.println("----------------");
 
         UniversalArray<Product> allowProducts = new UniversalArrayImpl<>();
         allowProducts.addAll(getAllowedProducts().toArray());
@@ -64,25 +65,24 @@ public class AppRunnerCash {
             print("Вы пополнили баланс на 10");
             return;
         }
+        if ("h".equalsIgnoreCase(action)) {
+            isExit = true;
+        }
+
         try {
             for (int i = 0; i < products.size(); i++) {
                 if (products.get(i).getActionLetter().equals(ActionLetter.valueOf(action.toUpperCase()))) {
                     cashAcceptorMy.setAmount(cashAcceptorMy.getAmount() - products.get(i).getPrice());
-                    print("Вы купили " + products.get(i).getName());
+                    print("Вы купили " + products.get(i).getName() + "\n");
                     break;
                 }
             }
         } catch (IllegalArgumentException e) {
-            if ("h".equalsIgnoreCase(action)) {
-                isExit = true;
-            } else {
-                print("Недопустимая буква. Попрбуйте еще раз.");
-                chooseAction(products);
-            }
+            print("Недопустимая буква. Попробуйте еще раз.");
+            chooseAction(products);
         }
-
-
     }
+
 
     private void showActions(UniversalArray<Product> products) {
         for (int i = 0; i < products.size(); i++) {
