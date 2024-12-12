@@ -13,6 +13,7 @@ public class AppRunnerCash {
 
     private static boolean isExit = false;
 
+
     private AppRunnerCash() {
         products.addAll(new Product[]{
                 new Water(ActionLetter.B, 20),
@@ -33,8 +34,8 @@ public class AppRunnerCash {
     }
 
     private void startSimulation() {
-        print("В автомате доступны:");
-        print("Монет на сумму: " + cashAcceptorMy.getAmount());
+        print("В автомате доступны: " + cashAcceptorMy.getAmount());
+        print("либо пополните сумму...");
         System.out.println("----------------");
         showProducts(products);
         System.out.println("----------------");
@@ -65,7 +66,9 @@ public class AppRunnerCash {
             print("Вы пополнили баланс на 10");
             return;
         }
-        if ("h".equalsIgnoreCase(action)) {
+
+
+        if ("h".equalsIgnoreCase(action) && cashAcceptorMy.getAmount() == 0) {
             isExit = true;
         }
 
@@ -78,8 +81,14 @@ public class AppRunnerCash {
                 }
             }
         } catch (IllegalArgumentException e) {
-            print("Недопустимая буква. Попробуйте еще раз.");
-            chooseAction(products);
+            if ("h".equalsIgnoreCase(action)) {
+                System.out.println("ваш остаток, заберите: " + cashAcceptorMy.getAmount());
+                isExit = true;
+            } else {
+                print("Недопустимая буква. Попробуйте еще раз.");
+                chooseAction(products);
+            }
+
         }
     }
 
