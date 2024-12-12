@@ -1,0 +1,8 @@
+1. git init
+2. git clone "url from github"
+3. git branch "new branch name"
+3.1 git checkout "branch name"
+4. git add "repo name or file name"
+5. git status
+6. git commit -m "message"
+7. git log
